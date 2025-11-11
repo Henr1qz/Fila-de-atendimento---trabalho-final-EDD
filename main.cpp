@@ -11,13 +11,25 @@ struct paciente{
 #include "funcoes.cpp"
 
 int main(){
-    paciente aux;
-    queue<paciente>pacientes;
-    menu();
-    char tipoAtendimento;
-    cin >> tipoAtendimento;
-    if(tipoAtendimento=='C'){
-        chegada(aux, pacientes);
-    }
+    queue<paciente>emergencia;
+    queue<paciente>urgencia;
+    queue<paciente>poucoUrgente;
+    queue<paciente>naoUrgente;
 
+    paciente aux;
+    char tipoAtendimento;
+    do{
+        menu();
+        cin >> tipoAtendimento;
+        
+        if(tipoAtendimento=='C'){
+            chegada(aux, emergencia, urgencia, poucoUrgente, naoUrgente);
+        }
+        else if(tipoAtendimento=='A'){
+            // Adicionar lógica para atender
+        }
+        else if(tipoAtendimento=='D'){
+            // Adicionar lógica para exibir filas
+        }
+    } while(tipoAtendimento != 'Q');  // Continua até pressionar 'Q'
 }

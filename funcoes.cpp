@@ -1,9 +1,8 @@
 #include <iostream>
 #include <queue>
-#include <string>
 
 void menu(){
-    std::cout<<"Selecione um evento:\n";
+    std::cout<<"\nSelecione um evento:\n";
     std::cout<<"Digite 'C' para registrar a chegada de um paciente\n";
     std::cout<<"Digite 'A' para atender um paciente\n";
     std::cout<<"Digite 'D' para exibir informacoes sobre o estado das filas\n";
@@ -35,7 +34,12 @@ void chegada(paciente &aux,
     std::cin>>aux.senha;
 
     std::cout<<"Digite a prioridade:\n";
-    std::cin>>aux.prioridade;aux.prioridade=toupper(aux.prioridade);
+    std::cin>>aux.prioridade;
+    aux.prioridade=toupper(aux.prioridade);
+    while(aux.prioridade!='V'&&aux.prioridade!='A'&&aux.prioridade!='D'&&aux.prioridade!='B'){
+        std::cout<<"Caractere invalido, tente novamente\n";
+        std::cin>>aux.prioridade;aux.prioridade=toupper(aux.prioridade);
+    }
 
     std::cout<<"Digite a hora de chegada:\n";
     std::cin>>aux.hora;
@@ -46,7 +50,7 @@ void chegada(paciente &aux,
 
     std::cout<<"Digite o minuto de chegada:\n";
     std::cin>>aux.minuto;
-        while(aux.minuto>59){
+    while(aux.minuto>59){
         std::cout<<"Voce inseriu um horario invalido, por favor tente novamente\n";
         std::cin>>aux.minuto;
     }
@@ -151,6 +155,7 @@ void consulta(std::queue<paciente> &emergencia,
 }
 
 void relatorioFinal(int &V, int &A, int &D, int &B, int &totalAtendido, int maxFila, int mEspera){
+    std::cout<<"---RELATORIO FINAL---\n";
     totalAtendido=V+A+D+B;
     std::cout<<"Total atendidos: "<<totalAtendido<<"\n";
     std::cout<<"Por prioridade: V="<<V<<" A="<<A<<" D="<<D<<" B="<<B<<"\n";

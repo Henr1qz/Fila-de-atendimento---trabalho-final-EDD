@@ -1,2 +1,2 @@
 # Fila-de-atendimento---trabalho-final-EDD
-Alunos Henrique Tonello Zotti e Leonardo Aresi Ceolin
+Alunos Henrique Tonello Zotti(210561) e Leonardo Aresi Ceolin(210058)

@@ -43,14 +43,14 @@ void chegada(paciente &aux,
 
     std::cout<<"Digite a hora de chegada:\n";
     std::cin>>aux.hora;
-    while(aux.hora>23){
+    while(aux.hora>23||aux.hora<0){
         std::cout<<"Voce inseriu um horario invalido, por favor tente novamente\n";
         std::cin>>aux.hora;
     }
 
     std::cout<<"Digite o minuto de chegada:\n";
     std::cin>>aux.minuto;
-    while(aux.minuto>59){
+    while(aux.minuto>59 || aux.minuto<0){
         std::cout<<"Voce inseriu um horario invalido, por favor tente novamente\n";
         std::cin>>aux.minuto;
     }

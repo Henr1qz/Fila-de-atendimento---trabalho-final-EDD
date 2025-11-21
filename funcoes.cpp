@@ -35,13 +35,21 @@ void chegada(paciente &aux,
     std::cin>>aux.senha;
 
     std::cout<<"Digite a prioridade:\n";
-    std::cin>>aux.prioridade;
+    std::cin>>aux.prioridade;aux.prioridade=toupper(aux.prioridade);
 
     std::cout<<"Digite a hora de chegada:\n";
     std::cin>>aux.hora;
+    while(aux.hora>23){
+        std::cout<<"Voce inseriu um horario invalido, por favor tente novamente\n";
+        std::cin>>aux.hora;
+    }
 
-    std::cout<<"Digite o minuto de chegada\n";
+    std::cout<<"Digite o minuto de chegada:\n";
     std::cin>>aux.minuto;
+        while(aux.minuto>59){
+        std::cout<<"Voce inseriu um horario invalido, por favor tente novamente\n";
+        std::cin>>aux.minuto;
+    }
 
     if(aux.prioridade=='V'){
         emergencia.push(aux);
@@ -65,56 +73,65 @@ void atendimento(int &hora, int &minuto, int &esperah, int &esperam,
             std::queue<paciente> &poucoUrgente, 
             std::queue<paciente> &naoUrgente,
             int &V, int &A, int &D, int &B,
-            int &maxEspera){
+            int &mEspera){
     
-    std::cout<<"Digite o horario do atendimento: "<< "\n";
+    std::cout<<"Digite a hora do atendimento: "<< "\n";
     std::cin>>hora;
+    while(hora>23){
+        std::cout<<"Voce inseriu um horario invalido, por favor tente novamente\n";
+        std::cin>>hora;
+    }
+    std::cout<<"Digite o minuto do atendimento: "<< "\n";
     std::cin>>minuto;
+     while(minuto>59){
+        std::cout<<"Voce inseriu um horario invalido, por favor tente novamente\n";
+        std::cin>>minuto;
+    }
     
     int totalMinutosEspera = 0;
 
     if(emergencia.empty()&&urgencia.empty()&&poucoUrgente.empty()&&naoUrgente.empty()){
-        std::cout<< hora<<" "<<minuto <<" Sem pacientes aguardando atendimento"<<"\n";
+        std::cout<< hora<<":"<<minuto <<" Sem pacientes aguardando atendimento"<<"\n";
 
     }else if(!emergencia.empty()){
         calcEspera(hora,minuto,esperah, esperam,emergencia);
         
         totalMinutosEspera = (esperah * 60) + esperam;
-        if(totalMinutosEspera > maxEspera) maxEspera = totalMinutosEspera;
+        if(totalMinutosEspera > mEspera) mEspera = totalMinutosEspera;
         
         emergencia.pop();
         V++;
-        std::cout<<"o paciente esperou: "<<esperah<<" horas e "<<esperam<<" minutos."<<"\n";
+        std::cout<<"o paciente esperou: "<<esperah<<" hora(s) e "<<esperam<<" minutos."<<"\n";
 
     }else if(emergencia.empty()&&!urgencia.empty()){
         calcEspera(hora,minuto,esperah, esperam,urgencia);
 
         totalMinutosEspera = (esperah * 60) + esperam;
-        if(totalMinutosEspera > maxEspera) maxEspera = totalMinutosEspera;
+        if(totalMinutosEspera > mEspera) mEspera = totalMinutosEspera;
 
         urgencia.pop();
         A++;
-        std::cout<<"o paciente esperou: "<<esperah<<" horas e "<<esperam<<" minutos."<<"\n";
+        std::cout<<"o paciente esperou: "<<esperah<<" hora(s) e "<<esperam<<" minutos."<<"\n";
 
     }else if(emergencia.empty()&&urgencia.empty()&&!poucoUrgente.empty()){
         calcEspera(hora,minuto,esperah, esperam,poucoUrgente);
 
         totalMinutosEspera = (esperah * 60) + esperam;
-        if(totalMinutosEspera > maxEspera) maxEspera = totalMinutosEspera;
+        if(totalMinutosEspera > mEspera) mEspera = totalMinutosEspera;
 
         poucoUrgente.pop();
         D++;
-        std::cout<<"o paciente esperou: "<<esperah<<" horas e "<<esperam<<" minutos."<<"\n";
+        std::cout<<"o paciente esperou: "<<esperah<<" hora(s) e "<<esperam<<" minutos."<<"\n";
 
     }else if(emergencia.empty()&&urgencia.empty()&&poucoUrgente.empty()&&!naoUrgente.empty()){
         calcEspera(hora,minuto,esperah, esperam,naoUrgente);
 
         totalMinutosEspera = (esperah * 60) + esperam;
-        if(totalMinutosEspera > maxEspera) maxEspera = totalMinutosEspera;
+        if(totalMinutosEspera > mEspera) mEspera = totalMinutosEspera;
 
         naoUrgente.pop();
         B++;
-        std::cout<<"o paciente esperou: "<<esperah<<" horas e "<<esperam<<" minutos."<<"\n";
+        std::cout<<"o paciente esperou: "<<esperah<<" hora(s) e "<<esperam<<" minutos."<<"\n";
     }
 }
 
@@ -133,10 +150,18 @@ void consulta(std::queue<paciente> &emergencia,
              <<" | Atendidos:"<<totalAtendido<<"\n";
 }
 
-void relatorioFinal(int &V, int &A, int &D, int &B, int &totalAtendido, int maxFila, int maxEspera){
+void relatorioFinal(int &V, int &A, int &D, int &B, int &totalAtendido, int maxFila, int mEspera){
     totalAtendido=V+A+D+B;
     std::cout<<"Total atendidos: "<<totalAtendido<<"\n";
     std::cout<<"Por prioridade: V="<<V<<" A="<<A<<" D="<<D<<" B="<<B<<"\n";
-    std::cout<<"Pico de lotação: "<<maxFila<<"\n";
-    std::cout<<"Espera máxima: "<<maxEspera<<" minutos\n";
+    std::cout<<"Pico de lotacao: "<<maxFila<<"\n";
+
+    if(mEspera>59){
+        int hEspera=mEspera/60;
+        mEspera=mEspera-hEspera*60;
+        std::cout<<"Espera maxima: "<< hEspera<<" hora(s) e " << mEspera<<" minutos\n";
+    }else{
+        std::cout<<"Espera maxima: "<<mEspera<<" minutos\n";
+    }
+
 }

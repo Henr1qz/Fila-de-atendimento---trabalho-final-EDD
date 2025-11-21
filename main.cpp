@@ -23,7 +23,7 @@ int main(){
     char tipoAtendimento;
     do{
         menu();
-        cin >> tipoAtendimento;
+        cin >> tipoAtendimento;tipoAtendimento=toupper(tipoAtendimento);
         
         if(tipoAtendimento=='C'){
             chegada(aux, emergencia, urgencia, poucoUrgente, naoUrgente, maxFila);
@@ -36,6 +36,8 @@ int main(){
         }
         else if(tipoAtendimento=='Q'){
             relatorioFinal(V,A,D,B,totalAtendido, maxFila, maxEspera);
+        }else{
+            cout<<"Comando invalido, tente novamente\n";
         }
     } while(tipoAtendimento != 'Q'); 
 }

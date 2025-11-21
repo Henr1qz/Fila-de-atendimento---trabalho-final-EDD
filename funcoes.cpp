@@ -81,13 +81,13 @@ void atendimento(int &hora, int &minuto, int &esperah, int &esperam,
     
     std::cout<<"Digite a hora do atendimento: "<< "\n";
     std::cin>>hora;
-    while(hora>23){
+    while(hora>23||hora<0){
         std::cout<<"Voce inseriu um horario invalido, por favor tente novamente\n";
         std::cin>>hora;
     }
     std::cout<<"Digite o minuto do atendimento: "<< "\n";
     std::cin>>minuto;
-     while(minuto>59){
+     while(minuto>59||minuto<0){
         std::cout<<"Voce inseriu um horario invalido, por favor tente novamente\n";
         std::cin>>minuto;
     }
